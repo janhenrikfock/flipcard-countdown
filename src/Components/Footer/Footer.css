@@ -1,0 +1,14 @@
+footer {
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+  height: 25vh;
+  background-image: url('/src/img/pattern-hills.svg');
+  background-size: cover;
+  display: grid;
+  place-items: center;
+}
+.footer__sociallink {
+  margin: 0 15px;
+}
