@@ -1,4 +1,5 @@
 * {
+  box-sizing: border-box;
   font-family: 'Red Hat Text', sans-serif;
 }
 .app_background {
@@ -9,7 +10,8 @@
 }
 h1 {
   margin: 0;
-  padding: 10px;
+  height: 25vh;
+  line-height: 25vh;
   text-align: center;
   font-size: 14px;
   color: white;

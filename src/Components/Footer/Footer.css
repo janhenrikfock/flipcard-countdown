@@ -11,4 +11,13 @@ footer {
 }
 .footer__sociallink {
   margin: 0 15px;
+  fill: #8385a9;
+}
+.footer__sociallink:hover {
+  transition: fill 0.5s;
+  fill: #ff587a;
+}
+
+.footer__sociallink-icon {
+  fill: inherit;
 }
