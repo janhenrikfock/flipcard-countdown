@@ -3,18 +3,16 @@ import { useState, useEffect } from 'react'
 import { animated, useSpring, config } from 'react-spring'
 
 export default function Flipcard({ measure, time }) {
-  const [cancelAnimation, setCancelAnimation] = useState(true)
   const [previousNumber, setPreviousNumber] = useState(time)
 
   useEffect(() => {
-    setCancelAnimation(false)
     setPreviousNumber(time + 1)
   }, [time])
 
   const frontCardAnimation = useSpring({
     from: { transform: 'rotateX(0deg)' },
     to: { transform: 'rotateX(-180deg)' },
-    cancel: cancelAnimation,
+    cancel: false,
     delay: 1,
     config: config.slow,
     reset: true,
@@ -22,7 +20,7 @@ export default function Flipcard({ measure, time }) {
   const backCardAnimation = useSpring({
     from: { transform: 'rotateX(180deg)' },
     to: { transform: 'rotateX(0deg)' },
-    cancel: cancelAnimation,
+    cancel: false,
     delay: 1,
     config: config.slow,
     reset: true,
