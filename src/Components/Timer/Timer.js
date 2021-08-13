@@ -1,5 +1,5 @@
 import './Timer.css'
-import Flipcard from './Flipcard'
+import Flipcard from './Flipcard/Flipcard'
 import { useState, useEffect } from 'react'
 
 export default function Timer() {
@@ -8,7 +8,7 @@ export default function Timer() {
   const [minutes, setMinutes] = useState()
   const [seconds, setSeconds] = useState()
 
-  function times() {
+  function countDown() {
     const destinationDate = new Date('October 24,2021 00:00:00').getTime()
     const now = new Date().getTime()
     const timeGap = destinationDate - now
@@ -31,7 +31,7 @@ export default function Timer() {
 
   useEffect(() => {
     setInterval(() => {
-      times()
+      countDown()
     }, 1000)
   }, [])
 
