@@ -1,8 +1,14 @@
 import styled from 'styled-components/macro'
 import { useState, useEffect } from 'react'
 import { animated, useSpring, config } from 'react-spring'
+import PropTypes from 'prop-types'
 
 export default function Flipcard({ measure, time }) {
+  Flipcard.propTypes = {
+    measure: PropTypes.string,
+    time: PropTypes.number,
+  }
+
   const [previousNumber, setPreviousNumber] = useState(time)
 
   useEffect(() => {
@@ -12,6 +18,7 @@ export default function Flipcard({ measure, time }) {
   const frontCardAnimation = useSpring({
     from: { transform: 'rotateX(0deg)' },
     to: { transform: 'rotateX(-180deg)' },
+    // Change the cancel boolean to determine if the animation runs
     cancel: false,
     delay: 1,
     config: config.slow,
@@ -20,6 +27,7 @@ export default function Flipcard({ measure, time }) {
   const backCardAnimation = useSpring({
     from: { transform: 'rotateX(180deg)' },
     to: { transform: 'rotateX(0deg)' },
+    // Change the cancel boolean to determine if the animation runs
     cancel: false,
     delay: 1,
     config: config.slow,
