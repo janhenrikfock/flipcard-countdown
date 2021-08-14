@@ -14,10 +14,13 @@ export default function Flipcard({ measure, time }) {
       setPreviousNumber(time)
     } else {
       setDisplayedNumber(time)
-      setPreviousNumber(time - 1)
       setCancelAnimation(true)
     }
   }, [time, displayedNumber])
+
+  useEffect(() => {
+    setPreviousNumber(displayedNumber + 1)
+  }, [displayedNumber])
 
   const frontCardAnimation = useSpring({
     from: { transform: 'rotateX(0deg)' },
@@ -85,7 +88,7 @@ const StaticCardTop = styled.div`
   span {
     display: inline-flex;
     align-items: center;
-    font-size: 32px;
+    font-size: 38px;
     color: #dd4663;
     transform: translateY(50%);
   }
@@ -103,7 +106,7 @@ const StaticCardBottom = styled.div`
   span {
     display: inline-flex;
     align-items: center;
-    font-size: 32px;
+    font-size: 38px;
     color: #ff5578;
     transform: translateY(-50%);
   }
@@ -125,7 +128,7 @@ const AnimatedCardFront = styled(animated.div)`
     display: inline-flex;
     align-items: center;
     color: #dd4663;
-    font-size: 32px;
+    font-size: 38px;
     transform: translateY(50%);
   }
 `
@@ -148,7 +151,7 @@ const AnimatedCardBack = styled(animated.div)`
     display: inline-flex;
     align-items: center;
     color: #ff5578;
-    font-size: 32px;
+    font-size: 38px;
     transform: translateY(-50%);
   }
 `
