@@ -4,47 +4,49 @@ import { animated, useSpring, config } from 'react-spring'
 import PropTypes from 'prop-types'
 
 export default function Flipcard({ measure, time }) {
-  const [previousNumber, setPreviousNumber] = useState(time)
+  const [displayedNumber, setDisplayedNumber] = useState(time)
+  const [cancelAnimation, setCancelAnimation] = useState(false)
 
   useEffect(() => {
-    setPreviousNumber(time + 1)
-  }, [time])
+    if (time === displayedNumber) {
+      setCancelAnimation(false)
+    } else {
+      setDisplayedNumber(time)
+      setCancelAnimation(true)
+    }
+  }, [time, displayedNumber])
 
   const frontCardAnimation = useSpring({
     from: { transform: 'rotateX(0deg)' },
     to: { transform: 'rotateX(-180deg)' },
-    // Change the cancel boolean to determine if the animation runs
-    cancel: false,
     delay: 1,
     config: config.slow,
-    reset: true,
+    reset: cancelAnimation,
   })
   const backCardAnimation = useSpring({
     from: { transform: 'rotateX(180deg)' },
     to: { transform: 'rotateX(0deg)' },
-    // Change the cancel boolean to determine if the animation runs
-    cancel: false,
     delay: 1,
     config: config.slow,
-    reset: true,
+    reset: cancelAnimation,
   })
 
   return (
     <ContainerCard>
       <StaticCardTop>
-        <span>{time}</span>
+        <span>{displayedNumber}</span>
       </StaticCardTop>
 
       <StaticCardBottom>
-        <span>{previousNumber}</span>
+        <span>{displayedNumber}</span>
       </StaticCardBottom>
 
       <AnimatedCardFront style={frontCardAnimation}>
-        <span>{previousNumber}</span>
+        <span>{displayedNumber}</span>
       </AnimatedCardFront>
 
       <AnimatedCardBack style={backCardAnimation}>
-        <span>{time}</span>
+        <span>{displayedNumber}</span>
       </AnimatedCardBack>
 
       <Subtext>{measure}</Subtext>
@@ -78,7 +80,8 @@ const StaticCardTop = styled.div`
   grid-area: top;
   overflow: hidden;
   span {
-    text-justify: center;
+    display: inline-flex;
+    align-items: center;
     font-size: 32px;
     color: #ff5578;
     transform: translateY(50%);
@@ -95,7 +98,8 @@ const StaticCardBottom = styled.div`
   grid-area: bottom;
   overflow: hidden;
   span {
-    text-justify: center;
+    display: inline-flex;
+    align-items: center;
     font-size: 32px;
     color: #ff5578;
     transform: translateY(-50%);
@@ -115,7 +119,8 @@ const AnimatedCardFront = styled(animated.div)`
   backface-visibility: hidden;
   background-color: #27283b;
   span {
-    text-justify: center;
+    display: inline-flex;
+    align-items: center;
     color: #ff5578;
     font-size: 32px;
     transform: translateY(50%);
@@ -137,7 +142,8 @@ const AnimatedCardBack = styled(animated.div)`
   backface-visibility: hidden;
   background-color: #2d3044;
   span {
-    text-justify: center;
+    display: inline-flex;
+    align-items: center;
     color: #ff5578;
     font-size: 32px;
     transform: translateY(-50%);
