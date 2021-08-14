@@ -4,11 +4,6 @@ import { animated, useSpring, config } from 'react-spring'
 import PropTypes from 'prop-types'
 
 export default function Flipcard({ measure, time }) {
-  Flipcard.propTypes = {
-    measure: PropTypes.string,
-    time: PropTypes.number,
-  }
-
   const [previousNumber, setPreviousNumber] = useState(time)
 
   useEffect(() => {
@@ -55,6 +50,10 @@ export default function Flipcard({ measure, time }) {
       <Subtext>{measure}</Subtext>
     </ContainerCard>
   )
+}
+Flipcard.propTypes = {
+  measure: PropTypes.string,
+  time: PropTypes.number,
 }
 
 const ContainerCard = styled.div`
