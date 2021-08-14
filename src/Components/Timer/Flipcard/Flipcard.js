@@ -1,37 +1,46 @@
 import styled from 'styled-components/macro'
 import { useState, useEffect } from 'react'
 import { animated, useSpring, config } from 'react-spring'
+import PropTypes from 'prop-types'
 
 export default function Flipcard({ measure, time }) {
-  const [cancelAnimation, setCancelAnimation] = useState(true)
-  const [previousNumber, setPreviousNumber] = useState(time)
+  const [displayedNumber, setDisplayedNumber] = useState(time)
+  const [previousNumber, setPreviousNumber] = useState()
+  const [cancelAnimation, setCancelAnimation] = useState(false)
 
   useEffect(() => {
-    setCancelAnimation(false)
-    setPreviousNumber(time + 1)
-  }, [time])
+    if (time === displayedNumber) {
+      setCancelAnimation(false)
+      setPreviousNumber(time)
+    } else {
+      setDisplayedNumber(time)
+      setCancelAnimation(true)
+    }
+  }, [time, displayedNumber])
+
+  useEffect(() => {
+    setPreviousNumber(displayedNumber + 1)
+  }, [displayedNumber])
 
   const frontCardAnimation = useSpring({
     from: { transform: 'rotateX(0deg)' },
     to: { transform: 'rotateX(-180deg)' },
-    cancel: cancelAnimation,
     delay: 1,
     config: config.slow,
-    reset: true,
+    reset: cancelAnimation,
   })
   const backCardAnimation = useSpring({
     from: { transform: 'rotateX(180deg)' },
     to: { transform: 'rotateX(0deg)' },
-    cancel: cancelAnimation,
     delay: 1,
     config: config.slow,
-    reset: true,
+    reset: cancelAnimation,
   })
 
   return (
     <ContainerCard>
       <StaticCardTop>
-        <span>{time}</span>
+        <span>{displayedNumber}</span>
       </StaticCardTop>
 
       <StaticCardBottom>
@@ -43,12 +52,16 @@ export default function Flipcard({ measure, time }) {
       </AnimatedCardFront>
 
       <AnimatedCardBack style={backCardAnimation}>
-        <span>{time}</span>
+        <span>{displayedNumber}</span>
       </AnimatedCardBack>
 
       <Subtext>{measure}</Subtext>
     </ContainerCard>
   )
+}
+Flipcard.propTypes = {
+  measure: PropTypes.string,
+  time: PropTypes.number,
 }
 
 const ContainerCard = styled.div`
@@ -73,9 +86,10 @@ const StaticCardTop = styled.div`
   grid-area: top;
   overflow: hidden;
   span {
-    text-justify: center;
-    font-size: 32px;
-    color: #ff5578;
+    display: inline-flex;
+    align-items: center;
+    font-size: 38px;
+    color: #dd4663;
     transform: translateY(50%);
   }
 `
@@ -90,8 +104,9 @@ const StaticCardBottom = styled.div`
   grid-area: bottom;
   overflow: hidden;
   span {
-    text-justify: center;
-    font-size: 32px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 38px;
     color: #ff5578;
     transform: translateY(-50%);
   }
@@ -110,9 +125,10 @@ const AnimatedCardFront = styled(animated.div)`
   backface-visibility: hidden;
   background-color: #27283b;
   span {
-    text-justify: center;
-    color: #ff5578;
-    font-size: 32px;
+    display: inline-flex;
+    align-items: center;
+    color: #dd4663;
+    font-size: 38px;
     transform: translateY(50%);
   }
 `
@@ -132,9 +148,10 @@ const AnimatedCardBack = styled(animated.div)`
   backface-visibility: hidden;
   background-color: #2d3044;
   span {
-    text-justify: center;
+    display: inline-flex;
+    align-items: center;
     color: #ff5578;
-    font-size: 32px;
+    font-size: 38px;
     transform: translateY(-50%);
   }
 `

@@ -3,10 +3,10 @@ import Flipcard from './Flipcard/Flipcard'
 import { useState, useEffect } from 'react'
 
 export default function Timer() {
-  const [days, setDays] = useState()
-  const [hours, setHours] = useState()
-  const [minutes, setMinutes] = useState()
-  const [seconds, setSeconds] = useState()
+  const [days, setDays] = useState(0)
+  const [hours, setHours] = useState(0)
+  const [minutes, setMinutes] = useState(0)
+  const [seconds, setSeconds] = useState(0)
 
   function countDown() {
     const destinationDate = new Date('October 24,2021 00:00:00').getTime()
