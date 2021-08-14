@@ -5,13 +5,16 @@ import PropTypes from 'prop-types'
 
 export default function Flipcard({ measure, time }) {
   const [displayedNumber, setDisplayedNumber] = useState(time)
+  const [previousNumber, setPreviousNumber] = useState()
   const [cancelAnimation, setCancelAnimation] = useState(false)
 
   useEffect(() => {
     if (time === displayedNumber) {
       setCancelAnimation(false)
+      setPreviousNumber(time)
     } else {
       setDisplayedNumber(time)
+      setPreviousNumber(time - 1)
       setCancelAnimation(true)
     }
   }, [time, displayedNumber])
@@ -38,11 +41,11 @@ export default function Flipcard({ measure, time }) {
       </StaticCardTop>
 
       <StaticCardBottom>
-        <span>{displayedNumber}</span>
+        <span>{previousNumber}</span>
       </StaticCardBottom>
 
       <AnimatedCardFront style={frontCardAnimation}>
-        <span>{displayedNumber}</span>
+        <span>{previousNumber}</span>
       </AnimatedCardFront>
 
       <AnimatedCardBack style={backCardAnimation}>
@@ -83,7 +86,7 @@ const StaticCardTop = styled.div`
     display: inline-flex;
     align-items: center;
     font-size: 32px;
-    color: #ff5578;
+    color: #dd4663;
     transform: translateY(50%);
   }
 `
@@ -121,7 +124,7 @@ const AnimatedCardFront = styled(animated.div)`
   span {
     display: inline-flex;
     align-items: center;
-    color: #ff5578;
+    color: #dd4663;
     font-size: 32px;
     transform: translateY(50%);
   }
