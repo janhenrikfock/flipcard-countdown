@@ -7,11 +7,10 @@ export default function Timer() {
   const [hours, setHours] = useState(0)
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
+  const [destinationTime, setDestinationTime] = useState(12096e5)
 
   function countDown() {
-    const destinationDate = new Date('October 24,2021 00:00:00').getTime()
-    const now = new Date().getTime()
-    const timeGap = destinationDate - now
+    const timeGap = destinationTime - 1000
 
     const second = 1000
     const minute = second * 60
@@ -27,13 +26,14 @@ export default function Timer() {
     setHours(displayedHours)
     setMinutes(displayedMinutes)
     setSeconds(displayedSeconds)
+    setDestinationTime(timeGap)
   }
 
   useEffect(() => {
-    setInterval(() => {
+    setTimeout(() => {
       countDown()
     }, 1000)
-  }, [])
+  })
 
   return (
     <div className="timer__container">

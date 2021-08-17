@@ -13,26 +13,26 @@ export default function Flipcard({ measure, time }) {
       setCancelAnimation(false)
       setPreviousNumber(time)
     } else {
-      setDisplayedNumber(time)
       setCancelAnimation(true)
+      setDisplayedNumber(time)
     }
-  }, [time, displayedNumber])
+  }, [displayedNumber, time])
 
   useEffect(() => {
-    setPreviousNumber(displayedNumber + 1)
+    setTimeout(setPreviousNumber(displayedNumber + 1), 500)
   }, [displayedNumber])
 
   const frontCardAnimation = useSpring({
     from: { transform: 'rotateX(0deg)' },
     to: { transform: 'rotateX(-180deg)' },
-    delay: 1,
+    delay: 0,
     config: config.slow,
     reset: cancelAnimation,
   })
   const backCardAnimation = useSpring({
     from: { transform: 'rotateX(180deg)' },
     to: { transform: 'rotateX(0deg)' },
-    delay: 1,
+    delay: 0,
     config: config.slow,
     reset: cancelAnimation,
   })
