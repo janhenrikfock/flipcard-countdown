@@ -37,22 +37,25 @@ export default function Flipcard({ measure, time }) {
     reset: cancelAnimation,
   })
 
+  const formattedNewNumber = formatNumber(displayedNumber)
+  const formattedPreviousNumber = formatNumber(previousNumber)
+
   return (
     <ContainerCard>
       <StaticCardTop>
-        <span>{displayedNumber}</span>
+        <span>{formattedNewNumber}</span>
       </StaticCardTop>
 
       <StaticCardBottom>
-        <span>{previousNumber}</span>
+        <span>{formattedPreviousNumber}</span>
       </StaticCardBottom>
 
       <AnimatedCardFront style={frontCardAnimation}>
-        <span>{previousNumber}</span>
+        <span>{formattedPreviousNumber}</span>
       </AnimatedCardFront>
 
       <AnimatedCardBack style={backCardAnimation}>
-        <span>{displayedNumber}</span>
+        <span>{formattedNewNumber}</span>
       </AnimatedCardBack>
 
       <Subtext>{measure}</Subtext>
@@ -60,6 +63,13 @@ export default function Flipcard({ measure, time }) {
       <CoilRight></CoilRight>
     </ContainerCard>
   )
+  function formatNumber(number = 0) {
+    let formattedNumber = number.toLocaleString('en-US', {
+      minimumIntegerDigits: 2,
+      useGrouping: false,
+    })
+    return formattedNumber
+  }
 }
 Flipcard.propTypes = {
   measure: PropTypes.string,
