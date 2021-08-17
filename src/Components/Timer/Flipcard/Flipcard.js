@@ -19,7 +19,7 @@ export default function Flipcard({ measure, time }) {
   }, [displayedNumber, time])
 
   useEffect(() => {
-    setTimeout(setPreviousNumber(displayedNumber + 1), 500)
+    setTimeout(setPreviousNumber(displayedNumber + 1), 700)
   }, [displayedNumber])
 
   const frontCardAnimation = useSpring({
@@ -56,6 +56,8 @@ export default function Flipcard({ measure, time }) {
       </AnimatedCardBack>
 
       <Subtext>{measure}</Subtext>
+      <CoilLeft></CoilLeft>
+      <CoilRight></CoilRight>
     </ContainerCard>
   )
 }
@@ -63,6 +65,28 @@ Flipcard.propTypes = {
   measure: PropTypes.string,
   time: PropTypes.number,
 }
+const CoilRight = styled.div`
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+  position: absolute;
+  top: 38px;
+  right: 0px;
+  height: 4px;
+  width: 2px;
+  background-color: #181a24;
+  z-index: 10;
+`
+const CoilLeft = styled.div`
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  position: absolute;
+  top: 38px;
+  left: 0px;
+  height: 4px;
+  width: 2px;
+  background-color: #181a24;
+  z-index: 10;
+`
 
 const ContainerCard = styled.div`
   margin: 9px;
@@ -79,7 +103,8 @@ const StaticCardTop = styled.div`
   display: flex;
   position: relative;
   justify-content: center;
-  border-radius: 5px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   height: 100%;
   width: 100%;
   background-color: #27283b;
@@ -97,7 +122,8 @@ const StaticCardBottom = styled.div`
   display: flex;
   position: relative;
   justify-content: center;
-  border-radius: 5px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
   height: 100%;
   width: 100%;
   background-color: #2d3044;
@@ -112,7 +138,8 @@ const StaticCardBottom = styled.div`
   }
 `
 const AnimatedCardFront = styled(animated.div)`
-  border-radius: 5px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   display: flex;
   position: absolute;
   justify-content: center;
@@ -133,7 +160,8 @@ const AnimatedCardFront = styled(animated.div)`
   }
 `
 const AnimatedCardBack = styled(animated.div)`
-  border-radius: 5px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
   display: flex;
   position: absolute;
   justify-content: center;
